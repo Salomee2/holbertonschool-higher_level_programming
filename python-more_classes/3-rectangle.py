@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
 Module 3-rectangle
-Defines a class Rectangle with width, height, area, perimeter, and string representation
+Defines a class Rectangle with width, height,
+area, perimeter, and string representation
 """
 
 
