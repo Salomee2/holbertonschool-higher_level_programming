@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+A class Rectangle that defines a rectangle by width and height,
+with methods for calculating the area
+perimeter, and handling instance deletion.
+"""
+
 
 class Rectangle:
     """Represent a rectangle by its width and height"""
@@ -51,10 +57,15 @@ class Rectangle:
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Return the string representation of the rectangle using print_symbol"""
+        """Return the string representation of
+        the rectangle using print_symbol"""
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join([str(self.print_symbol) * self.__width for _ in range(self.__height)])
+
+        rectangle_str = [
+            str(self.__width * "#") for _ in range(self.__height)
+        ]
+        return "\n".join(rectangle_str)
 
     def __repr__(self):
         """Return a string that can recreate the rectangle"""

@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+A class Rectangle that defines a rectangle by width and height,
+with methods for calculating the area
+perimeter, and handling instance deletion.
+"""
+
 
 class Rectangle:
     """Represent a rectangle by its width and height"""
