@@ -1,0 +1,5 @@
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("number", "not a number")
+Traceback (most recent call last):
+    ...
+TypeError: number must be an integer
