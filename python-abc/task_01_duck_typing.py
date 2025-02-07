@@ -5,6 +5,7 @@ import math
 
 
 class Shape(ABC):
+
     @abstractmethod
     def area(self):
         pass
@@ -15,6 +16,7 @@ class Shape(ABC):
 
 
 class Circle(Shape):
+
     def __init__(self, radius):
         self.radius = radius
 
@@ -26,6 +28,7 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
