@@ -1,7 +1,16 @@
 #!/usr/bin/python3
+"""
+Module task_01_duck_typing
+Implémente une classe Shape avec des sous-classes Circle et Rectang
+Utilise le duck typing pour afficher l'aire et le pérmètr
+"""
+
 
 from abc import ABC, abstractmethod
 import math
+
+
+print("Import de la classe Shape...")
 
 
 class Shape(ABC):
@@ -13,6 +22,9 @@ class Shape(ABC):
     @abstractmethod
     def perimeter(self):
         pass
+
+
+print("Import de la classe Circle...")
 
 
 class Circle(Shape):
@@ -27,6 +39,9 @@ class Circle(Shape):
         return 2 * math.pi * self.radius
 
 
+print("Import de la classe Rectangle...")
+
+
 class Rectangle(Shape):
 
     def __init__(self, width, height):
@@ -38,6 +53,9 @@ class Rectangle(Shape):
 
     def perimeter(self):
         return 2 * (self.width + self.height)
+
+
+print("Import de la fonction shape_info...")
 
 
 def shape_info(shape):
