@@ -1,8 +1,12 @@
 #!/usr/bin/python3
+""" Function that generates Pascal's Triangle """
 
 
 def pascal_triangle(n):
-    """Returns a list of lists representing Pascal s triangle of n."""
+    """
+    Returns a list of lists of integers representing Pascal s
+    triangle of n.
+    """
     if n <= 0:
         return []
 
