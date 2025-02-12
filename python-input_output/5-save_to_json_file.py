@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import json
 
+
 def save_to_json_file(my_obj, filename):
     """
     Save an object as a JSON string in a file.
@@ -11,13 +12,14 @@ def save_to_json_file(my_obj, filename):
     except TypeError as e:
         print("[{}] {}".format(e.__class__.__name__, e))
 
+
 my_list = [1, 2, 3]
 save_to_json_file(my_list, "my_list.json")
 
-my_dict = { 
+my_dict = {
     'id': 12,
     'name': "John",
-    'places': [ "San Francisco", "Tokyo" ],
+    'places': ["San Francisco", "Tokyo"],
     'is_active': True,
     'info': {'age': 36, 'average': 3.14}
 }
