@@ -6,11 +6,8 @@ def save_to_json_file(my_obj, filename):
     """
     Save an object as a JSON string in a file.
     """
-    try:
-        with open(filename, 'w') as file:
-            json.dump(my_obj, file)
-    except TypeError as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    with open(filename, 'w') as file:
+        json.dump(my_obj, file)
 
 
 my_list = [1, 2, 3]
