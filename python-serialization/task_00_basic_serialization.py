@@ -10,7 +10,6 @@ def serialize_and_save_to_file(data, filename):
     try:
         with open(filename, 'w') as file:
             json.dump(data, file)
-        print(f"The data has been serialized and saved to '{filename}'.")
     except Exception as e:
         print(f"An error occurred while saving the data: {e}")
 
