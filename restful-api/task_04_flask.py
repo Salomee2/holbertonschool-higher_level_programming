@@ -4,26 +4,43 @@ app = Flask(__name__)
 
 # Initialiser un dictionnaire pour stocker les utilisateurs
 users = {
-    "jane": {"username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"},
-    "john": {"username": "john", "name": "John", "age": 30, "city": "New York"}
+    "jane": {
+        "username": "jane",
+        "name": "Jane",
+        "age": 28,
+        "city": "Los Angeles"
+        },
+    "john": {
+        "username": "john",
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+
+        }
 }
 
-# Route d'accueil
+
 @app.route('/')
 def home():
     return "Bienvenue sur l'API Flask !"
 
 # Route pour obtenir tous les utilisateurs
+
+
 @app.route('/data')
 def get_users():
     return jsonify(list(users.keys()))
 
 # Route pour vérifier l'état de l'API
+
+
 @app.route('/status')
 def status():
     return "OK"
 
 # Route pour obtenir un utilisateur par son nom d'utilisateur
+
+
 @app.route('/users/<username>')
 def get_user(username):
     user = users.get(username)
@@ -33,6 +50,8 @@ def get_user(username):
         return jsonify({"error": "Utilisateur introuvable"}), 404
 
 # Route pour ajouter un utilisateur
+
+
 @app.route('/add_user', methods=['POST'])
 def add_user():
     user_data = request.get_json()
@@ -55,6 +74,7 @@ def add_user():
         "message": "Utilisateur ajouté",
         "user": users[username]
     }), 201
+
 
 if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0', port=5000)
