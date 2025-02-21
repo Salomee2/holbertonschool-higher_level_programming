@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import (
@@ -8,11 +9,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 auth = HTTPBasicAuth()
 
-# Cl� pour JWT (modifie-la en production)
+# ClÃ pour JWT (modifie-la en production)
 app.config["JWT_SECRET_KEY"] = "super-secret-key"
 jwt = JWTManager(app)
 
-# Utilisateurs stockés en mémoire
+# Utilisateurs stockÃ©s en mÃ©moire
 users = {
     "user1": {
         "username": "user1",
@@ -29,7 +30,7 @@ users = {
 
 @auth.verify_password
 def verify_password(username, password):
-    """Vérifie les identifiants pour l'authentification Basic"""
+    """VÃ©rifie les identifiants pour l'authentification Basic"""
     if username in users and check_password_hash(
         users[username]["password"], password
     ):
@@ -40,13 +41,13 @@ def verify_password(username, password):
 @app.route("/basic-protected", methods=["GET"])
 @auth.login_required
 def basic_protected():
-    """Route protégée par Basic Auth"""
+    """Route protÃ©gÃ©e par Basic Auth"""
     return jsonify({"message": "Basic Auth: Access Granted"})
 
 
 @app.route("/login", methods=["POST"])
 def login():
-    """Endpoint de connexion pour générer un token JWT"""
+    """Endpoint de connexion pour gÃ©nÃ©rer un token JWT"""
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
@@ -55,7 +56,7 @@ def login():
         users[username]["password"], password
     ):
         access_token = create_access_token(
-            identity={"username": username, "role": users[username]["role"]}
+                identity=user["username"], additional_claims={"role": user["role"]})
         )
         return jsonify(access_token=access_token)
 
@@ -65,7 +66,7 @@ def login():
 @app.route("/jwt-protected", methods=["GET"])
 @jwt_required()
 def jwt_protected():
-    """Route protégée par JWT"""
+    """Route protÃ©gÃ©e par JWT"""
     return jsonify({"message": "JWT Auth: Access Granted"})
 
 
