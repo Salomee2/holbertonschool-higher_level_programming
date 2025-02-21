@@ -1,28 +1,39 @@
 
 from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required,create_access_token, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Initialisation de Flask, HTTPAuth et JWTManager
 app = Flask(__name__)
 auth = HTTPBasicAuth()
-app.config['JWT_SECRET_KEY'] = 'supersecretkey'  # Clé secrèteour signer les tokens JWT
+app.config['JWT_SECRET_KEY'] = 'supersecretkey'
+# Clefs pour signer les tokens JWT
 jwt = JWTManager(app)
 
 # Liste des utilisateurs avec mots de passe hachés
 users = {
-    "user1": {"username": "user1", "password": generate_password_hash("password"), "role": "user"},
-    "admin1": {"username": "admin1", "password": generate_password_hash("password"), "role": "admin"}
+    "user1": {
+        "username": "user1",
+        "password": generate_password_hash("password"),
+        "role": "user"},
+    "admin1": {
+        "username": "admin1",
+        "password": generate_password_hash("password"),
+        "role": "admin"}
 }
 
 # Basic Authentication - Vérifier les identifiants
+
+
 @auth.verify_password
 def verify_password(username, password):
     if username in users and check_password_hash(users[username]["password"], password):
         return username
 
 # Route protégée avec Basic Auth
+
+
 @app.route('/basic-protected', methods=['GET'])
 @auth.login_required
 def basic_protected():
