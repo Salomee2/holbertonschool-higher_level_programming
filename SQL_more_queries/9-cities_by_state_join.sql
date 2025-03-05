@@ -1,5 +1,7 @@
--- 9. Cities by State Join
--- List cities along with their corresponding state names using a JOIN.
-SELECT cities.name AS city, states.name AS state
-FROM cities
-JOIN states ON cities.state_id = states.id;
+-- List all cities with their corresponding state names
+-- Each record shows cities.id - cities.name - states.name
+-- Sorted in ascending order by cities.id
+SELECT cities.id, cities.name, states.name 
+FROM cities 
+JOIN states ON cities.state_id = states.id
+ORDER BY cities.id ASC;

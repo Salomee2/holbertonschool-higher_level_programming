@@ -1,7 +1,8 @@
--- 14. My Genres
--- Create the 'my_genres' table with columns 'id' and 'name'.
-CREATE TABLE IF NOT EXISTS my_genres (
-    id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(256) NOT NULL,
-    PRIMARY KEY (id)
-);
+-- List all genres of the show "Dexter"
+SELECT genres.name
+FROM tv_shows
+JOIN tv_show_genres ON tv_shows.id = tv_show_genres.tv_show_id
+JOIN genres ON tv_show_genres.genre_id = genres.id
+WHERE tv_shows.title = 'Dexter'
+ORDER BY genres.name ASC;
+

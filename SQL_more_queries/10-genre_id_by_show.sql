@@ -1,5 +1,7 @@
--- 10. Genre ID by Show
--- List show titles and their corresponding genre IDs.
-SELECT tv_shows.title, tv_genres.id AS genre_id
-FROM tv_shows
-LEFT JOIN tv_genres ON tv_shows.genre_id = tv_genres.id;
+-- List all shows with at least one genre linked
+-- Display: tv_shows.title - tv_show_genres.genre_id
+-- Sorted in ascending order by tv_shows.title and tv_show_genres.genre_id
+SELECT tv_shows.title, tv_show_genres.genre_id 
+FROM tv_show_genres 
+JOIN tv_shows ON tv_show_genres.tv_show_id = tv_shows.id 
+ORDER BY tv_shows.title ASC, tv_show_genres.genre_id ASC;
