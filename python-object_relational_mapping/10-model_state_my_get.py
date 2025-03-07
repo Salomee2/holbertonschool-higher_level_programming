@@ -1,33 +1,45 @@
 #!/usr/bin/python3
+"""
+Script that prints the State object with the name passed as argument from the
+database hbtn_0e_6_usa
+"""
+
 from model_state import Base, State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sys
 
-if __name__ == "__main__":
-    # Vérification que le nombre d'arguments est correct
-    if len(sys.argv) != 5:
-        print("Usage: ./10-model_state_my_get.py <mysql_username> <mysql_password> <database_name> <state_name>")
-        sys.exit(1)
 
-    # Récupération des arguments
-    mysql_user = sys.argv[1]
-    mysql_pass = sys.argv[2]
-    db_name = sys.argv[3]
+def get_state_by_name():
+    """
+    Prints the State object where the name matches the argument, or "Not found"
+    """
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
     state_name = sys.argv[4]
 
-    # Création de l'URL de connexion
-    engine = create_engine(f'mysql+mysqldb://{mysql_user}:{mysql_pass}@localhost/{db_name}')
-    
-    # Création de la session
+    # Create an engine that connects to the MySQL server
+    engine = create_engine(
+        f'mysql+mysqldb://{username}:{password}@localhost/{database}',
+        pool_pre_ping=True
+    )
+
+    # Create a session
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Recherche de l'état dans la base de données
+    # Query the database for the state by name
     state = session.query(State).filter(State.name == state_name).first()
 
-    # Affichage du résultat
     if state:
         print(state.id)
     else:
         print("Not found")
+
+    # Close the session
+    session.close()
+
+
+if __name__ == "__main__":
+    get_state_by_name()

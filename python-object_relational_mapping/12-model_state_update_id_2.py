@@ -1,29 +1,42 @@
 #!/usr/bin/python3
+"""
+Script that changes the name of a State object in the database hbtn_0e_6_usa.
+"""
+
 from model_state import Base, State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sys
 
-if __name__ == "__main__":
-    # Vérification du nombre d'arguments
-    if len(sys.argv) != 4:
-        print("Usage: ./12-model_state_update_id_2.py <mysql_username> <mysql_password> <database_name>")
-        sys.exit(1)
 
-    # Récupération des arguments
-    mysql_user = sys.argv[1]
-    mysql_pass = sys.argv[2]
-    db_name = sys.argv[3]
+def update_state():
+    """
+    Changes the name of the State where id = 2 to 'New Mexico' in the database.
+    """
+    # Connection arguments
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
 
-    # Création de l'URL de connexion
-    engine = create_engine(f'mysql+mysqldb://{mysql_user}:{mysql_pass}@localhost/{db_name}')
+    # Create an engine that connects to the MySQL server
+    engine = create_engine(
+        f'mysql+mysqldb://{username}:{password}@localhost/{database}',
+        pool_pre_ping=True
+    )
 
-    # Création de la session
+    # Create a session
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Recherche de l'état avec id=2 et mise à jour de son nom
+    # Find the state with id = 2 and change its name
     state = session.query(State).filter(State.id == 2).first()
     if state:
-        state.name = "New Mexico"
+        state.name = 'New Mexico'
         session.commit()
+
+    # Close the session
+    session.close()
+
+
+if __name__ == "__main__":
+    update_state()

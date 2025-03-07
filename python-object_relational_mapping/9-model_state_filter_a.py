@@ -1,31 +1,45 @@
 #!/usr/bin/python3
+"""
+Script that lists all State objects containing the letter 'a' from the database
+hbtn_0e_6_usa
+"""
+
 from model_state import Base, State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sys
 
-def filter_states():
-    # Connexion à la base de données MySQL
+
+def filter_states_by_letter_a():
+    """
+    List all State objects from the database hbtn_0e_6_usa that
+    contain the letter 'a'
+    """
     username = sys.argv[1]
     password = sys.argv[2]
-    db_name = sys.argv[3]
+    database = sys.argv[3]
 
-    # Créer l'URL de connexion pour MySQL
-    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}', pool_pre_ping=True)
+    # Create an engine that connects to the MySQL server
+    engine = create_engine(
+        f'mysql+mysqldb://{username}:{password}@localhost/{database}',
+        pool_pre_ping=True
+    )
 
-    # Créer une session
+    # Create a session
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Requête pour récupérer les États contenant "a", triés par ID
-    states = session.query(State).filter(State.name.like('%a%')).order_by(State.id).all()
+    # Fetch all states that contain 'a' in the name, ordered by id
+    states = session.query(State).filter(State.name.like('%a%'))\
+        .order_by(State.id).all()
 
-    # Affichage des résultats
+    # Print the results
     for state in states:
         print(f"{state.id}: {state.name}")
 
+    # Close the session
     session.close()
 
+
 if __name__ == "__main__":
-    # Lancer la fonction si le script est exécuté directement
-    filter_states()
+    filter_states_by_letter_a()
