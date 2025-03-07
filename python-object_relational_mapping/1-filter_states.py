@@ -1,36 +1,32 @@
-import MySQLdb
-import sys
-if __name__ == "__main__":
-    # Vérifie si le bon nombre d'arguments est passé
-    if len(sys.argv) != 4:
-        print("Usage: ./1-filter_states.py <mysql_username> <mysql_password> <database_name>")
-        sys.exit(1)
-    
-    # Récupère les arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    
-    # Connexion à la base de données MySQL
-    db = MySQLdb.connect(host="localhost", user=username, passwd=password, db=database, port=3306)
-    
-    # Créer un curseur pour exécuter la requête SQL
-    cursor = db.cursor()
-    
-    # Requête SQL pour filtrer les états dont le nom commence par 'N'
-    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
-    
-    # Exécute la requête
-    cursor.execute(query)
-    
-    # Récupère les résultats
-    states = cursor.fetchall()
-    
-    # Affiche les résultats
-    for state in states:
-        print(state)
-    
-    # Ferme la connexion
-    cursor.close()
-    db.close()
+#!/usr/bin/python3
+"""
+Script qui liste tous les états dont le nom commence par "N"
+depuis la base de données hbtn_0e_0_usa.
+"""
 
+import sys
+import MySQLdb
+
+if __name__ == "__main__":
+	# Connexion à la base de données
+	db = MySQLdb.connect(
+		host="localhost",
+		user=sys.argv[1],
+		passwd=sys.argv[2],
+		db=sys.argv[3],
+		port=3306
+	)
+
+	# Création du curseur pour exécuter la requête
+	cursor = db.cursor()
+
+	# Requête SQL : récupérer les états commençant par "N"
+	cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+
+	# Récupérer et afficher les résultats
+	for row in cursor.fetchall():
+		print(row)
+
+	# Fermer le curseur et la connexion
+	cursor.close()
+	db.close()
