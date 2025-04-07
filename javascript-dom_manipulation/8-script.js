@@ -3,5 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
       .then((response) => response.json())
       .then((data) => {
         document.querySelector('#hello').textContent = data.hello;
+      })
+      .catch((error) => {
+        console.error('Erreur de récupération :', error);
       });
   });
